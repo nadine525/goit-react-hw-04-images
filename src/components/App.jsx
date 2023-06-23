@@ -33,7 +33,10 @@ export const App = () => {
 
   useEffect(() => {
     const fetchImagesByRequest = async () => {
-    
+      if (searchValue === '') {
+      return
+      }
+      
       try {
         setStatus('pending');
         const response = await fetchImages(searchValue, page);
@@ -76,7 +79,7 @@ export const App = () => {
 
 
 
-  
+
   return (
     <Container>
       <Searchbar getInputValue={getInputValue} />
