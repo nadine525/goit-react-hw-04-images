@@ -4,10 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Searchbar from "./Searchbar";
-// import ImageGallery from './ImageGallery';
+import ImageGallery from './ImageGallery';
 // import Button from "./Button";
 // import ModalWindow from './ModalWindow';
-// import Loader from "./Loader/Loader";
+import Loader from "./Loader/Loader";
 
 import { fetchImages} from '../services/api';
 
@@ -83,9 +83,9 @@ export const App = () => {
       <Container>
           <Searchbar getInputValue={getInputValue} />
 
-          {/* {images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)} */}
+          {images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
 
-          {/* {status === 'pending' && <Loader />} */}
+          {status === 'pending' && <Loader />}
           {/* {images.length > 0 && status !== 'pending' && (<Button onClick={this.onButtonClick} />) } */}
         
           {/* {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)} */}
