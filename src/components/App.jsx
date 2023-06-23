@@ -5,8 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import Searchbar from "./Searchbar";
 import ImageGallery from './ImageGallery';
-// import Button from "./Button";
-// import ModalWindow from './ModalWindow';
+import Button from "./Button";
+import ModalWindow from './ModalWindow';
 import Loader from "./Loader/Loader";
 
 import { fetchImages} from '../services/api';
@@ -20,9 +20,9 @@ export const App = () => {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState('idle');
-  // const [showModal, setShowModal] = useState(false);
-  // const [modalImg, setModalImg] = useState('');
-  // const [modalTags, setModalTags] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalImg, setModalImg] = useState('');
+  const [modalTags, setModalTags] = useState('');
 
   const getInputValue = handleValue => {
     setImages([]);
@@ -59,39 +59,34 @@ export const App = () => {
   }, [searchValue, page])
 
 
+  const toggleModal = (event) => {
+    setShowModal(prevState => !prevState);
+  };
 
-
-  // toggleModal = (event) => {
-  //   this.setState(state => ({
-  //     showModal: !state.showModal
-  //   }))
-  // };
-
-  // getLargeImg = (imageURL, imageTags)=> {
-  //   this.setState({ modalImg: imageURL, modalTags: imageTags });
-  //   this.toggleModal();
-  // };
-
-  // onButtonClick = () => {
-  //   this.setState(prevState => ({ page: prevState.page + 1 }));
-  // }
-
+  const getLargeImg = (imageURL, imageTags)=> {
+    setModalImg(imageURL);
+    setModalTags(imageTags);
   
+    toggleModal();
+  };
+
+  const onButtonClick = () => {
+    setPage(prevState => prevState + 1 );
+  }
 
 
-      return (
-      <Container>
-          <Searchbar getInputValue={getInputValue} />
+  return (
+    <Container>
+      <Searchbar getInputValue={getInputValue} />
 
-          {images.length > 0 && (<ImageGallery images={images} onImgClick={this.getLargeImg} />)}
+      {images.length > 0 && (<ImageGallery images={images} onImgClick={getLargeImg} />)}
 
-          {status === 'pending' && <Loader />}
-          {/* {images.length > 0 && status !== 'pending' && (<Button onClick={this.onButtonClick} />) } */}
+      {status === 'pending' && <Loader />}
+      {images.length > 0 && status !== 'pending' && (<Button onClick={onButtonClick} />) }
         
-          {/* {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={this.toggleModal} />)} */}
-          <ToastContainer autoClose={3000} />
-      </Container>
-    );
-  
+      {showModal && (<ModalWindow url={modalImg} tags={modalTags} onClose={toggleModal} />)}
+      <ToastContainer autoClose={3000} />
+    </Container>
+  );
 };
 
